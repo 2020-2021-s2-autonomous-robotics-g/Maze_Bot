@@ -58,7 +58,7 @@ def read(robot):
 def main():
     # Tell LocoRobo what serial port to use
     LocoRobo.setup("/dev/tty.usbmodem1")
-    
+   
     # Scan for robots
     robots = LocoRobo.scan(2000)
 
@@ -69,22 +69,43 @@ def main():
     robot.activate_motors()
     robot.enable_sensor(Data.ULTRASONIC, True)
     while True:
-        robot.enable_sensor(Data.ULTRASONIC, True)
-        distance = robot.get_sensor_value(Data.ULTRASONIC)
-        print(distance)
+        #robot.enable_sensor(Data.ULTRASONIC, True)
+        #distance = robot.get_sensor_value(Data.ULTRASONIC)
+        #print(distance)
         left, front, right = read(robot)
         print (left, front, right)
-        if left < right:
+        if right and left < front:
+            forward(robot, speed=1, distance=30)
+            left, front, right = read(robot)
+            print (left, front, right)
+        elif left < right:
             turn_right(robot, speed=1, degrees=90)
             forward(robot, speed=1, distance=30)
-        if right < left:
-            turn_left(robot, speed=1, degrees=180)
+            left, front, right = read(robot)
+            print (left, front, right)
+        elif right < left:
+            turn_left(robot, speed=1, degrees=90)
+            forward(robot, speed=1, distance=30)
+            left, front, right = read(robot)
+            print (left, front, right)
+        elif right and left and front == 25-30:
             turn_right(robot, speed=1, degrees=90)
             forward(robot, speed=1, distance=30)
-        if right < front:
+            left, front, right = read(robot)
+            print (left, front, right)
+        elif forward and right == 25 - 30 > left:
+            turn_right(robot, speed=1, degrees=90)
             forward(robot, speed=1, distance=30)
-    
+            left, front, right = read(robot)
+            print (left, front, right)
+        elif forward and left == 25 - 30 > right:
+            turn_left(robot, speed=1, degrees=90)
+            forward(robot, speed=1, distance=30)
+            left, front, right = read(robot)
+            print (left, front, right)
         
+   
+       
 
     robot.deactivate_motors()
     robot.disconnect()
