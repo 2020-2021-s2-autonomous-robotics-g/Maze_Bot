@@ -88,17 +88,17 @@ def main():
             forward(robot, speed=1, distance=30)
             left, front, right = read(robot)
             print (left, front, right)
-        elif right and left and front == 25-30:
+        elif right and left and front == 30-45:
             turn_right(robot, speed=1, degrees=90)
             forward(robot, speed=1, distance=30)
             left, front, right = read(robot)
             print (left, front, right)
-        elif forward and right == 25 - 30 > left:
+        elif forward and right == 30 - 45 > left:
             turn_right(robot, speed=1, degrees=90)
             forward(robot, speed=1, distance=30)
             left, front, right = read(robot)
             print (left, front, right)
-        elif forward and left == 25 - 30 > right:
+        elif forward and left == 30 - 45 > right:
             turn_left(robot, speed=1, degrees=90)
             forward(robot, speed=1, distance=30)
             left, front, right = read(robot)
